@@ -7,6 +7,9 @@ function docReady(){
     
     // display restaurants table on load
     getRestaurants();
+
+    // on submit, add a restaurant
+    $('#addRestaurantButton').on('click', addRestaurant);
 }
 
 function getRestaurants(){
@@ -31,10 +34,17 @@ function getRestaurants(){
                 <td>${restaurant.type}</td>
             </tr>
             `);
-        
         });
         
     }).catch( function(error) {
         alert('error with GET', error)
     });
 } // end getRestaurants
+
+function addRestaurant(){
+    console.log('in addRestaurant');
+    // get input values
+    // store values on server via POST
+    // get updated data from server
+    // display updated data on table
+} // end addRestaurant
