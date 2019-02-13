@@ -44,10 +44,10 @@ app.get('/restaurants', (req, res) => {
     // query restaurant table 
     pool.query(`SELECT * FROM "restaurants";`)
         .then((results) => {
-            console.log('back from query', results.rows);
+            console.log('back from select', results.rows);
             res.send(results.rows);
         }).catch((error) => {
-            console.log('error with restaurants query', results);
+            console.log('error with restaurants query', error);
             res.sendStatus(500);
         });
     //res.sendStatus(200);
@@ -55,7 +55,18 @@ app.get('/restaurants', (req, res) => {
 
 app.post('/restaurants', (req, res) => {
     console.log('sending via POST', req.body);
-    res.sendStatus(200);
+    // query to insert into restaurants
+    pool.query(`INSERT INTO "restaurants" ("name", "type") 
+    VALUES ('Cinema Paradiso', 'Italian');`)
+            .then(() => {
+                console.log('back from insert');
+                res.sendStatus(200);
+            }).catch((error) => {
+                console.log('error with restaurants query', error);
+                res.sendStatus(500);
+            });
+    //res.sendStatus(200);
 });
+
 
 
