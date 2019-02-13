@@ -27,11 +27,27 @@ router.post('/', (req, res) => {
     // query insert into restaurants
     pool.query(`INSERT INTO "restaurants" ("name", "type") 
     VALUES ( $1, $2 );`, [req.body.name, req.body.type])
-        .then(() => {
-            console.log('back from insert');
+        .then( () => {
             res.sendStatus(200);
         }).catch((error) => {
             console.log('error with restaurants query', error);
+            res.sendStatus(500);
+        });
+});
+
+// DELETE route to /restaurants
+// add wildcard :taco
+router.delete('/:id', (req, res) => {
+    console.log('delete request was hit');
+    console.log('req.params', req.params); // object with one property
+    
+    // query insert into restaurants
+    pool.query(`DELETE FROM "restaurants"
+                WHERE "id" = $1;`, [req.params.id])
+        .then( () => {
+            res.sendStatus(204);
+        }).catch( (error) => {
+            console.log('error with restaurant delete query', error);
             res.sendStatus(500);
         });
 });

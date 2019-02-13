@@ -11,6 +11,9 @@ function docReady(){
     getRestaurants();
     // on submit, add a restaurant
     $('#addRestaurantButton').on('click', addRestaurant);
+
+    // on delete, delete restaurant row
+    $('#restaurantTable').on('click', '.deleteRestaurant', deleteRestaurant);
 } // end docReady
 
 function getRestaurants(){
@@ -20,18 +23,19 @@ function getRestaurants(){
         url: '/restaurants',
         method: 'GET'
     }).then( function(response) {
-        console.log('back from GET', response);
+        //console.log('back from GET', response);
         // empty table
         $('#restaurantTableBody').empty();
         // display restaurants on table
         response.forEach( function(restaurant) {
-            console.log('restaurant:', restaurant);
+            //console.log('restaurant:', restaurant);
             // get object values
             // append values to table
             $('#restaurantTableBody').append(`
             <tr>
                 <td>${restaurant.name}</td>
                 <td>${restaurant.type}</td>
+                <td><button class="deleteRestaurant" data-id="${restaurant.id}">Delete</button></td>
             </tr>
             `);
         });
@@ -46,14 +50,14 @@ function addRestaurant(){
     // get input values
     // create new class
     let newRestaurant = new Restaurant($('#nameIn').val(), $('#typeIn').val() );
-    console.log('newRestaurant', newRestaurant);
+    //console.log('newRestaurant', newRestaurant);
     // store values on server via POST
     $.ajax({
         url: '/restaurants',
         method: 'POST',
         data: newRestaurant
     }).then( function() {
-        console.log('back from POST');
+        //console.log('back from POST');
         // get updated data from server
         // display updated data on table
         getRestaurants();
@@ -63,3 +67,15 @@ function addRestaurant(){
     // clear input values
     $('.restaurantIn').val('');
 } // end addRestaurant
+
+function deleteRestaurant(){
+    console.log('in deleteRestaurant');
+    console.log('deleting id:', $(this).data().id);
+    
+    $.ajax({
+        url: '/restaurants/' + $(this).data().id,
+        method: 'DELETE'
+    }).then( function (){
+        getRestaurants();
+    })
+} // end deleteRestaurant

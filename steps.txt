@@ -7,5 +7,6 @@ x create addRestaurant function to add restaurant on submit
 
 Lecture 2
 move pool code from server to pool.js
+move routes to router module
 
 
