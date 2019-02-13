@@ -41,11 +41,12 @@ function getRestaurants(){
             </tr>
             `);
         });
-        
     }).catch( function(error) {
         alert('error with GET', error)
     });
+
 } // end getRestaurants
+
 
 function addRestaurant(){
     console.log('in addRestaurant');
@@ -60,8 +61,14 @@ function addRestaurant(){
         data: newRestaurant
     }).then( function() {
         console.log('back from POST');
-        
+        // get updated data from server
+        // display updated data on table
+        getRestaurants();
+    }).catch(function (error) {
+        alert('error with POST', error)
     });
-    // get updated data from server
-    // display updated data on table
+
+    // clear input values
+    $('.restaurantIn').val('');
+    
 } // end addRestaurant
