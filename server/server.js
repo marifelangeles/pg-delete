@@ -2,8 +2,9 @@
 let express = require('express');
 let app = express();
 let PORT = 5000;
-const pg = require('pg');
 let bodyParser = require('body-parser');
+
+let pool = require('./modules/pool');
 
 // uses
 app.use(express.static('server/public'));
@@ -14,22 +15,10 @@ app.listen(PORT, () => {
     console.log(`running in ${PORT}`);
 });
 
-// connect to database
-const pool = pg.Pool({
-    host: 'localhost',
-    port: 5432,
-    database: 'restaurants',  // use snake_case
-    max: 10,
-    idleTimeoutMillis: 30000
-});
 
-pool.on('connect', () => {
-    console.log('postgresql connected');
-});
 
-pool.on('error', (error) => {
-    console.log('error with postgres pool', error);
-});
+
+
 
 // routes
 

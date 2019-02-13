@@ -3,6 +3,9 @@ x connect to database
 x set up public files
 x create html set up
 x display restaurants table on DOM
-create addRestaurant function to add restaurant on submit
+x create addRestaurant function to add restaurant on submit
+
+Lecture 2
+move pool code from server to pool.js
 
 

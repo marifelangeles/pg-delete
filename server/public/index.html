@@ -12,33 +12,36 @@
     <title>Restaurants</title>
 </head>
 <body>
-    <h1>Restaurants</h1>
 
-    <div class="row-header">
-        <h2>Add a Restaurant</h2>
-    </div>
-    <div id="inputDiv" class="row-content">
-        <label for="name">Name</label>
-        <input type="text" placeholder="Name" id="nameIn" class="restaurantIn">
-        <label for="type">Type</label>
-        <input type="text" placeholder="Type" id="typeIn" class="restaurantIn">
-        <button id="addRestaurantButton">Submit</button>
-    </div>
-    
-    <div class="row-header">
-        <h2>Restaurants</h2>
-    </div>
-    <div id="outputDiv" class="row-content">
-        <table id="restaurantTable" class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
-            <tbody id="restaurantTableBody">
-            </tbody>
-        </table>
+    <div class="container-fluid">
+        <h1>Restaurants</h1>
+
+        <div class="row-header">
+            <h2>Add a Restaurant</h2>
+        </div>
+        <div id="inputDiv" class="row-content">
+            <label for="name">Name</label>
+            <input type="text" placeholder="Name" id="nameIn" class="restaurantIn">
+            <label for="type">Type</label>
+            <input type="text" placeholder="Type" id="typeIn" class="restaurantIn">
+            <button id="addRestaurantButton">Submit</button>
+        </div>
+        
+        <div class="row-header">
+            <h2>Restaurants</h2>
+        </div>
+        <div id="outputDiv" class="row-content">
+            <table id="restaurantTable" class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody id="restaurantTableBody">
+                </tbody>
+            </table>
+        </div>
     </div>
 
     
