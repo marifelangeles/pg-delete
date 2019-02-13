@@ -53,5 +53,9 @@ app.get('/restaurants', (req, res) => {
     //res.sendStatus(200);
 });
 
+app.post('/restaurants', (req, res) => {
+    console.log('sending via POST', req.body);
+    res.sendStatus(200);
+});
 
 

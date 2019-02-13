@@ -54,7 +54,14 @@ function addRestaurant(){
     let newRestaurant = new Restaurant($('#nameIn').val(), $('#typeIn').val() );
     console.log('newRestaurant', newRestaurant);
     // store values on server via POST
-    
+    $.ajax({
+        url: '/restaurants',
+        method: 'POST',
+        data: newRestaurant
+    }).then( function() {
+        console.log('back from POST');
+        
+    });
     // get updated data from server
     // display updated data on table
 } // end addRestaurant
