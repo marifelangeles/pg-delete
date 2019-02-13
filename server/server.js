@@ -54,10 +54,10 @@ app.get('/restaurants', (req, res) => {
 });
 
 app.post('/restaurants', (req, res) => {
-    console.log('sending via POST', req.body);
+    console.log('sending via POST', req.body.name);
     // query to insert into restaurants
     pool.query(`INSERT INTO "restaurants" ("name", "type") 
-    VALUES ('Cinema Paradiso', 'Italian');`)
+    VALUES ( $1, $2 );`, [req.body.name, req.body.type])
             .then(() => {
                 console.log('back from insert');
                 res.sendStatus(200);
