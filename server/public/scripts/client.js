@@ -1,5 +1,11 @@
 console.log('js');
 
+class Restaurant {
+    constructor(name, type) {
+        this.name = name;
+        this.type = type;
+    }
+}
 $(document).ready(docReady);
 
 function docReady(){
@@ -44,7 +50,11 @@ function getRestaurants(){
 function addRestaurant(){
     console.log('in addRestaurant');
     // get input values
+    // create new class
+    let newRestaurant = new Restaurant($('#nameIn').val(), $('#typeIn').val() );
+    console.log('newRestaurant', newRestaurant);
     // store values on server via POST
+    
     // get updated data from server
     // display updated data on table
 } // end addRestaurant
