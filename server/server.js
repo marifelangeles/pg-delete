@@ -21,7 +21,7 @@ const pool = pg.Pool({
     // what port? not 5000 --> 5432 most common for postgres
     port: 5432,
     // name of database
-    database: 'bookstore',
+    database: 'restaurants',
     // number of connection in pool; 10 max in heroku
     max: 10,
     // 30 sec to try to connect or cancel query
@@ -41,5 +41,17 @@ pool.on('error', (error) => {
 // GET /restaurants
 app.get('/restaurants', (req, res) => {
     console.log('GET /restaurants');
-    res.sendStatus(200);
+    // query restaurant table 
+    pool.query(`SELECT * FROM "restaurants";`)
+        .then((results) => {
+            console.log('back from query', results.rows);
+            res.send(results.rows);
+        }).catch((error) => {
+            console.log('error with restaurants query', results);
+            res.sendStatus(500);
+        });
+    //res.sendStatus(200);
 });
+
+
+
