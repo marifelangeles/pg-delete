@@ -1,0 +1,6 @@
+x set up server 
+x connect to database
+x set up public files
+x create html set up
+display restaurants table on DOM
+create event listener for addRestaurant
