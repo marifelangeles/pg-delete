@@ -16,15 +16,10 @@ app.listen(PORT, () => {
 
 // connect to database
 const pool = pg.Pool({
-    // where database is
     host: 'localhost',
-    // what port? not 5000 --> 5432 most common for postgres
     port: 5432,
-    // name of database
-    database: 'restaurants',
-    // number of connection in pool; 10 max in heroku
+    database: 'restaurants',  // use snake_case
     max: 10,
-    // 30 sec to try to connect or cancel query
     idleTimeoutMillis: 30000
 });
 
@@ -38,34 +33,33 @@ pool.on('error', (error) => {
 
 // routes
 
-// GET /restaurants
+// GET route to /restaurants
 app.get('/restaurants', (req, res) => {
     console.log('GET /restaurants');
-    // query restaurant table 
+    // query select restaurant table 
     pool.query(`SELECT * FROM "restaurants";`)
-        .then((results) => {
+        .then( (results) => {     
             console.log('back from select', results.rows);
             res.send(results.rows);
-        }).catch((error) => {
+        }).catch( (error) => {
             console.log('error with restaurants query', error);
             res.sendStatus(500);
         });
-    //res.sendStatus(200);
 });
 
+// POST route to /restaurants
 app.post('/restaurants', (req, res) => {
-    console.log('sending via POST', req.body.name);
-    // query to insert into restaurants
+    console.log('sending via POST', req.body);
+    // query insert into restaurants
     pool.query(`INSERT INTO "restaurants" ("name", "type") 
     VALUES ( $1, $2 );`, [req.body.name, req.body.type])
-            .then(() => {
+            .then( () => {
                 console.log('back from insert');
                 res.sendStatus(200);
-            }).catch((error) => {
+            }).catch( (error) => {
                 console.log('error with restaurants query', error);
                 res.sendStatus(500);
             });
-    //res.sendStatus(200);
 });
 
 

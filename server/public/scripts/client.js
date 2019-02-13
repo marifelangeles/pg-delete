@@ -1,5 +1,3 @@
-console.log('js');
-
 class Restaurant {
     constructor(name, type) {
         this.name = name;
@@ -9,18 +7,14 @@ class Restaurant {
 $(document).ready(docReady);
 
 function docReady(){
-    console.log('jq');
-    
     // display restaurants table on load
     getRestaurants();
-
     // on submit, add a restaurant
     $('#addRestaurantButton').on('click', addRestaurant);
-}
+} // end docReady
 
 function getRestaurants(){
-    console.log('in getRestaurants');
-    
+    //console.log('in getRestaurants');
     // get data from server
     $.ajax({
         url: '/restaurants',
@@ -30,7 +24,7 @@ function getRestaurants(){
         // empty table
         $('#restaurantTableBody').empty();
         // display restaurants on table
-        response.forEach(restaurant => {
+        response.forEach( function(restaurant) {
             console.log('restaurant:', restaurant);
             // get object values
             // append values to table
@@ -44,12 +38,11 @@ function getRestaurants(){
     }).catch( function(error) {
         alert('error with GET', error)
     });
-
 } // end getRestaurants
 
 
 function addRestaurant(){
-    console.log('in addRestaurant');
+    // console.log('in addRestaurant');
     // get input values
     // create new class
     let newRestaurant = new Restaurant($('#nameIn').val(), $('#typeIn').val() );
@@ -67,8 +60,6 @@ function addRestaurant(){
     }).catch(function (error) {
         alert('error with POST', error)
     });
-
     // clear input values
     $('.restaurantIn').val('');
-    
 } // end addRestaurant
