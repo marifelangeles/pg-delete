@@ -25,8 +25,8 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     console.log('sending via POST', req.body);
     // query insert into restaurants
-    pool.query(`INSERT INTO "restaurants" ("name", "type") 
-    VALUES ( $1, $2 );`, [req.body.name, req.body.type])
+    pool.query(`INSERT INTO "restaurants" ("name", "type", "rating") 
+    VALUES ( $1, $2, $3 );`, [req.body.name, req.body.type, req.body.rating])
         .then( () => {
             res.sendStatus(200);
         }).catch((error) => {

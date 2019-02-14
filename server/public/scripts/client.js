@@ -1,7 +1,8 @@
 class Restaurant {
-    constructor(name, type) {
+    constructor(name, type, rating) {
         this.name = name;
         this.type = type;
+        this.rating = rating;
     }
 }
 $(document).ready(docReady);
@@ -35,6 +36,7 @@ function getRestaurants(){
             <tr>
                 <td>${restaurant.name}</td>
                 <td>${restaurant.type}</td>
+                <td>${restaurant.rating}</td>
                 <td><button class="deleteRestaurant" data-id="${restaurant.id}">Delete</button></td>
             </tr>
             `);
@@ -49,7 +51,7 @@ function addRestaurant(){
     // console.log('in addRestaurant');
     // get input values
     // create new class
-    let newRestaurant = new Restaurant($('#nameIn').val(), $('#typeIn').val() );
+    let newRestaurant = new Restaurant($('#nameIn').val(), $('#typeIn').val(), $('#ratingIn').val() );
     //console.log('newRestaurant', newRestaurant);
     // store values on server via POST
     $.ajax({
@@ -70,7 +72,7 @@ function addRestaurant(){
 
 function deleteRestaurant(){
     console.log('in deleteRestaurant');
-    console.log('deleting id:', $(this).data().id);
+    console.log('deleting id:', $(this).data().id );
     
     $.ajax({
         url: '/restaurants/' + $(this).data().id,
