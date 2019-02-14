@@ -87,10 +87,13 @@ function deleteRestaurant(){
 function saveRestaurant(){
     console.log('in saveRestaurant');
     console.log('saving id:', $(this).data().id);
+    console.log('saving rating:', $(this).data().rating);
+
 
     $.ajax({
         url: '/restaurants/' + $(this).data().id,
-        method: 'PUT'
+        method: 'PUT',
+        data: { rating: 3 }
     }).then(function () {
         getRestaurants();
     })
