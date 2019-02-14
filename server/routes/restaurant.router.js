@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
     console.log('GET /restaurants');
     // query select restaurant table 
-    pool.query(`SELECT * FROM "restaurants";`)
+    pool.query(`SELECT * FROM "restaurants" ORDER BY "id";`)
         .then((results) => {
             console.log('back from select', results.rows);
             res.send(results.rows);
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
         });
 });
 
-// POST route to /restaurants
+// POST route to "restaurants"
 router.post('/', (req, res) => {
     console.log('sending via POST', req.body);
     // query insert into restaurants
@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
         });
 });
 
-// DELETE route to /restaurants
+// DELETE restaurant row
 // add wildcard :taco
 router.delete('/:id', (req, res) => {
     console.log('delete request was hit');
@@ -48,6 +48,22 @@ router.delete('/:id', (req, res) => {
             res.sendStatus(204);
         }).catch( (error) => {
             console.log('error with restaurant delete query', error);
+            res.sendStatus(500);
+        });
+});
+
+// UPDATE rating 
+router.put('/:id', (req, res) => {
+    console.log('update request was hit');
+    console.log('req.params', req.params); 
+
+    // query insert into restaurants
+    pool.query(`UPDATE "restaurants" SET "rating" = 4
+                WHERE "id" = $1;`, [req.params.id])
+        .then(() => {
+            res.sendStatus(204);
+        }).catch((error) => {
+            console.log('error with restaurant update query', error);
             res.sendStatus(500);
         });
 });

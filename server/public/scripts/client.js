@@ -12,13 +12,14 @@ function docReady(){
     getRestaurants();
     // on submit, add a restaurant
     $('#addRestaurantButton').on('click', addRestaurant);
-
     // on delete, delete restaurant row
     $('#restaurantTable').on('click', '.deleteRestaurant', deleteRestaurant);
+    // on save, save restaurant info
+    $('#restaurantTable').on('click', '.saveRestaurant', saveRestaurant);
 } // end docReady
 
 function getRestaurants(){
-    //console.log('in getRestaurants');
+    console.log('in getRestaurants');
     // get data from server
     $.ajax({
         url: '/restaurants',
@@ -37,6 +38,7 @@ function getRestaurants(){
                 <td>${restaurant.name}</td>
                 <td>${restaurant.type}</td>
                 <td>${restaurant.rating}</td>
+                <td><button class="saveRestaurant" data-id="${restaurant.id}">Save</button></td>
                 <td><button class="deleteRestaurant" data-id="${restaurant.id}">Delete</button></td>
             </tr>
             `);
@@ -48,7 +50,7 @@ function getRestaurants(){
 
 
 function addRestaurant(){
-    // console.log('in addRestaurant');
+    console.log('in addRestaurant');
     // get input values
     // create new class
     let newRestaurant = new Restaurant($('#nameIn').val(), $('#typeIn').val(), $('#ratingIn').val() );
@@ -81,3 +83,15 @@ function deleteRestaurant(){
         getRestaurants();
     })
 } // end deleteRestaurant
+
+function saveRestaurant(){
+    console.log('in saveRestaurant');
+    console.log('saving id:', $(this).data().id);
+
+    $.ajax({
+        url: '/restaurants/' + $(this).data().id,
+        method: 'PUT'
+    }).then(function () {
+        getRestaurants();
+    })
+} // end saveRestaurant
