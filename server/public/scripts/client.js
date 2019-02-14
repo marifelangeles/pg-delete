@@ -37,11 +37,14 @@ function getRestaurants(){
             <tr>
                 <td>${restaurant.name}</td>
                 <td>${restaurant.type}</td>
-                <td>${restaurant.rating}</td>
+                <td><input value ="${restaurant.rating}"/></td>
                 <td><button class="saveRestaurant" data-id="${restaurant.id}">Save</button></td>
                 <td><button class="deleteRestaurant" data-id="${restaurant.id}">Delete</button></td>
             </tr>
             `);
+            
+            
+            
         });
     }).catch( function(error) {
         alert('error with GET', error)
@@ -87,13 +90,13 @@ function deleteRestaurant(){
 function saveRestaurant(){
     console.log('in saveRestaurant');
     console.log('saving id:', $(this).data().id);
-    console.log('saving rating:', $(this).data().rating);
+    console.log( 'target rating value', $(this).parent().prev().children().val());
 
 
     $.ajax({
         url: '/restaurants/' + $(this).data().id,
         method: 'PUT',
-        data: { rating: 3 }
+        data: { rating: $(this).parent().prev().children().val() }
     }).then(function () {
         getRestaurants();
     })
